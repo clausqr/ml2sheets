@@ -1,4 +1,4 @@
-// content.js 🪙
+// content.js 
 // scraper.js was run before this script!
 
 // Function to inject the "Agregar a Google Sheets" button
@@ -7,7 +7,7 @@ function injectButton() {
 
   if (addToCartButton && !document.querySelector('.google-sheets-button')) {
     const googleSheetsButton = document.createElement('button');
-    googleSheetsButton.innerText = 'Agregar a Google Sheets 🪙';
+    googleSheetsButton.innerText = 'Agregar a Google Sheets ';
     googleSheetsButton.className = 'andes-button andes-button--loud google-sheets-button';
     googleSheetsButton.style.marginTop = '10px';
     googleSheetsButton.style.backgroundColor = '#800080'; // Color lila

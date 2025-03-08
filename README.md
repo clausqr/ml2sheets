@@ -1,6 +1,6 @@
-# ML2Sheets 🪙
+# ML2Sheets
 
-ML2Sheets is a Chrome extension that automatically extracts product information from MercadoLibre pages and appends a new row in a Google Sheets document. This extension is built using HTML, JavaScript, and the Chrome Extensions API, and it integrates with a Google Apps Script Web App for seamless data transfer. 🪙
+ML2Sheets is a Chrome extension that automatically extracts product information from MercadoLibre pages and appends a new row in a Google Sheets document. This extension is built using HTML, JavaScript, and the Chrome Extensions API, and it integrates with a Google Apps Script Web App for seamless data transfer.
 
 **Current status is alpha - you must load it via "Load Unpacked" in Chrome to use it.**
 
@@ -10,7 +10,7 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 - **Google Sheets Integration:** Sends the extracted data to a Google Sheet by appending a new row.
 - **User Configuration:** Easily set up your Google Apps Script Web App URL via the extension’s Options page.
 - **Simple UI:** Intuitive popup interface to trigger data sending.
-- **Didactic Code:** Code and comments in English with fun currency emojis to guide you through the process. 🪙
+- **Didactic Code:** Code and comments in English with fun currency emojis to guide you through the process.
 
 ## Usage (After initial Setup, see below!) 🚀
 
@@ -69,21 +69,21 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 
      ```js
      function doGet(e) {
-       // Returns a simple message to confirm the web app is running 🪙
+       // Returns a simple message to confirm the web app is running 
        return ContentService.createTextOutput("ML2Sheets Web App is running!");
      }
 
      function doPost(e) {
-       // Parse the incoming JSON data 🪙
+       // Parse the incoming JSON data 
        var data = JSON.parse(e.postData.contents);
 
-       // Open the Google Sheet by ID (replace "YOUR_SHEET_ID" with your actual Sheet ID) 🪙
+       // Open the Google Sheet by ID (replace "YOUR_SHEET_ID" with your actual Sheet ID) 
        var sheet = SpreadsheetApp.openById("YOUR_SHEET_ID").getActiveSheet();
   
-       // Append the data as a new row in the sheet 🪙
+       // Append the data as a new row in the sheet 
        sheet.appendRow(data);
   
-       return ContentService.createTextOutput("Row added successfully 🪙");
+       return ContentService.createTextOutput("Row added successfully ");
      }
      ```
 
@@ -134,4 +134,4 @@ If you have any questions or need support, please open an issue in the repositor
 
 ---
 
-Happy coding! 🪙
+Happy coding!

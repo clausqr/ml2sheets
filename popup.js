@@ -1,7 +1,7 @@
-// popup.js 🪙
+// popup.js 
 
 async function sendData() {
-  console.log('Send data triggered 🪙');
+  console.log('Send data triggered ');
 
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -10,7 +10,7 @@ async function sendData() {
     func: () => window.getProductData().then(data => data)  // Call the unified function
   }, (results) => {
     if (chrome.runtime.lastError || !results || !results[0].result) {
-      console.error('Error fetching product data 🪙:', chrome.runtime.lastError);
+      console.error('Error fetching product data :', chrome.runtime.lastError);
       return;
     }
     
@@ -21,8 +21,8 @@ async function sendData() {
     chrome.storage.sync.get(['googleScriptUrl'], (result) => {
       const url = result.googleScriptUrl;
       if (!url) {
-        console.error("Google Script URL is not set! 🪙");
-        alert("Please set the Google Script URL in the Options page. 🪙");
+        console.error("Google Script URL is not set! ");
+        alert("Please set the Google Script URL in the Options page. ");
         return;
       }
       
@@ -35,15 +35,15 @@ async function sendData() {
         body: JSON.stringify(data)
       })
       .then(response => response.text())
-      .then(result => console.log('Data sent successfully 🪙:', result))
-      .catch(error => console.error('Error sending data 🪙:', error));
+      .then(result => console.log('Data sent successfully :', result))
+      .catch(error => console.error('Error sending data :', error));
     });
   });
 }
 
 // Event listener for button click
 document.getElementById('sendDataBtn').addEventListener('click', async () => {
-  console.log('Button clicked 🪙');
+  console.log('Button clicked ');
   await sendData();
 });
 
@@ -56,7 +56,7 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "sendDataContextMenu") {
-    console.log('Context menu clicked 🪙');
+    console.log('Context menu clicked ');
     await sendData();
   }
 });
@@ -64,7 +64,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // Event listener for hotkey
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "send-data") {
-    console.log('Hotkey pressed 🪙');
+    console.log('Hotkey pressed ');
     await sendData();
   }
 });
