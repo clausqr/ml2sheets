@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>ML2Sheets Options</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; }
+    input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <h1>ML2Sheets Options 🪙</h1>
-  <label for="googleScriptUrl">Google Apps Script Web App URL:</label>
-  <input type="text" id="googleScriptUrl" placeholder="Enter Web App URL">
-  <br>
-  <button id="saveBtn">Save Options 🪙</button>
+  <div class="container">
+    <h1>ML2Sheets Options 🪙</h1>
+    <form id="optionsForm">
+      <div class="form-group">
+        <label for="googleScriptUrl">Google Apps Script Web App URL:</label>
+        <input type="text" id="googleScriptUrl" name="googleScriptUrl" placeholder="Enter Web App URL" required>
+      </div>
+      <div class="form-group">
+        <label for="selectors">Selectors (comma-separated)</label>
+        <input type="text" id="selectors" name="selectors" required>
+      </div>
+      <button type="submit">Save Options 🪙</button>
+    </form>
+  </div>
   <script src="options.js"></script>
 </body>
 </html>
