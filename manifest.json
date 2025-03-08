@@ -11,14 +11,32 @@
     "page": "options.html",
     "open_in_tab": true
   },
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "send-data": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U"
+      },
+      "description": "Send product data to Google Sheets 🪙"
+    }
+  },
   "content_scripts": [
     {
       "matches": [
         "*://*.mercadolibre.com/*",
         "*://*.mercadolibre.com.ar/*"
       ],
-      "js": ["content.js"]
+      "js": [
+        "content.js"
+      ]
     }
   ]
 }

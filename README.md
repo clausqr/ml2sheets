@@ -10,6 +10,21 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 - **Simple UI:** Intuitive popup interface to trigger data sending.
 - **Didactic Code:** Code and comments in English with fun currency emojis to guide you through the process. 🪙
 
+## Usage (After initial Setup, see below!)
+
+1. **Navigate to a MercadoLibre Product Page:**
+   - Open any product page on MercadoLibre.
+
+2. **Extract and Send Data:**
+    Either:
+    1. Click on the ML2Sheets extension icon in the Chrome toolbar and then click **Send Data**.
+    2. Right-click on the page and select **Send Data to Google Sheets** from the context menu.
+    3. Press `Ctrl+Shift+U" to trigger the data extraction and sending to Google Sheets.
+
+3. **Verify the Data:**
+   - Open your Google Sheet to confirm that the new row with product details has been added.
+
+
 ## Prerequisites
 
 - **Google Account:** Required to access Google Sheets and Google Apps Script.
@@ -74,19 +89,7 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
    - Open the Options page (accessible from the extension details).
    - Enter your Google Apps Script Web App URL and click **Save Options**.
 
-## Usage
-
-1. **Navigate to a MercadoLibre Product Page:**
-   - Open any product page on MercadoLibre.
-
-2. **Extract and Send Data:**
-   - Click the ML2Sheets extension icon to open the popup.
-   - Click **Send Data to Sheets 🪙** to extract product information and send it to your Google Sheet.
-
-3. **Verify the Data:**
-   - Open your Google Sheet to confirm that the new row with product details has been added.
-
-## Customization
+## Customization and Further Development
 
 - **Selectors:**  
   The CSS selectors used in `content.js` and `popup.js` (e.g., `h1.item-title`, `.price-tag-fraction`, `.shipping-cost`, `.seller-info`) may need adjustment based on the current MercadoLibre page structure.
