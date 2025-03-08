@@ -42,10 +42,12 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 
 2. **Automatically Create the Project Structure:**
    - Run the provided shell script to create all necessary files and folders:
+
      ```bash
      chmod +x create_ml2sheets.sh
      ./create_ml2sheets.sh
      ```
+
    - This will create a folder named `ml2sheets` with all the required files.
 
 3. **Load the Extension in Chrome:**
@@ -64,20 +66,27 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
    - Open your Google Sheet.
    - Go to **Extensions > Apps Script**.
    - Create a new project and paste the following code:
+
      ```js
+     function doGet(e) {
+       // Returns a simple message to confirm the web app is running 🪙
+       return ContentService.createTextOutput("ML2Sheets Web App is running!");
+     }
+
      function doPost(e) {
        // Parse the incoming JSON data 🪙
        var data = JSON.parse(e.postData.contents);
-       
+
        // Open the Google Sheet by ID (replace "YOUR_SHEET_ID" with your actual Sheet ID) 🪙
        var sheet = SpreadsheetApp.openById("YOUR_SHEET_ID").getActiveSheet();
-       
+  
        // Append the data as a new row in the sheet 🪙
-       sheet.appendRow([data.productTitle, data.price, data.shippingCost, data.seller, data.productUrl]);
-       
+       sheet.appendRow(data);
+  
        return ContentService.createTextOutput("Row added successfully 🪙");
      }
      ```
+
    - Replace `"YOUR_SHEET_ID"` with your actual Google Sheet ID.
    - Deploy the script as a Web App:
      - Click on **Deploy > New deployment**.
@@ -89,11 +98,21 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
    - In Chrome, click on the ML2Sheets extension icon.
    - Open the Options page (accessible from the extension details).
    - Enter your Google Apps Script Web App URL and click **Save Options**.
+   - Enter the CSS selectors for the data fields you want to extract, separated by commas. The default selectors are:
+     - `h1.ui-pdp-title` for the product title
+     - `.andes-money-amount__fraction[aria-hidden="true"]` for the price
+     - `.ui-pdp-buybox__quantity__available` for the shipping cost
+     - `.ui-pdp-seller__header__title` for the seller
 
 ## Customization and Further Development 🔧
 
 - **Selectors:**  
-  The CSS selectors used in `content.js` and `popup.js` (e.g., `h1.item-title`, `.price-tag-fraction`, `.shipping-cost`, `.seller-info`) may need adjustment based on the current MercadoLibre page structure.
+  The CSS selectors used to extract data can be configured via the extension's Options page. By default, the following selectors are used:
+  - `h1.ui-pdp-title` for the product title
+  - `.andes-money-amount__fraction[aria-hidden="true"]` for the price
+  - `.ui-pdp-buybox__quantity__available` for the shipping cost
+  - `.ui-pdp-seller__header__title` for the seller
+  You can adjust these selectors based on the current MercadoLibre page structure.
 
 - **Error Handling:**  
   You can enhance error handling as needed for production use.
