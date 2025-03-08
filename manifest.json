@@ -15,7 +15,8 @@
     "activeTab",
     "scripting",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "commands"
   ],
   "background": {
     "service_worker": "background.js"
@@ -35,8 +36,10 @@
         "*://*.mercadolibre.com.ar/*"
       ],
       "js": [
+        "scraper.js",
         "content.js"
-      ]
+      ],
+      "run_at": "document_end"
     }
   ]
 }

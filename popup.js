@@ -1,23 +1,13 @@
 // popup.js 🪙
-// This script handles the popup button click event to extract product data and send it to Google Sheets.
 
-document.getElementById('sendDataBtn').addEventListener('click', async () => {
-  console.log('Button clicked 🪙');
+async function sendData() {
+  console.log('Send data triggered 🪙');
 
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    func: async () => {
-      // Return fixed data for testing
-      return {
-        productTitle: "Test Product",
-        price: "12345",
-        shippingCost: "Free",
-        seller: "Test Seller",
-        productUrl: "http://example.com"
-      };
-    }
+    func: () => window.getProductData()  // Call the unified function
   }, (results) => {
     if (chrome.runtime.lastError || !results || !results[0].result) {
       console.error('Error fetching product data 🪙:', chrome.runtime.lastError);
@@ -27,7 +17,7 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
     const data = results[0].result;
     console.log("Extracted Data:", data);
     
-    // Retrieve the Google Apps Script URL from storage 🪙
+    // Retrieve the Google Apps Script URL from storage
     chrome.storage.sync.get(['googleScriptUrl'], (result) => {
       const url = result.googleScriptUrl;
       if (!url) {
@@ -38,7 +28,7 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
       
       fetch(url, {
         method: 'POST',
-        mode: 'no-cors', // Using no-cors mode to bypass CORS restrictions
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -49,4 +39,32 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
       .catch(error => console.error('Error sending data 🪙:', error));
     });
   });
+}
+
+// Event listener for button click
+document.getElementById('sendDataBtn').addEventListener('click', async () => {
+  console.log('Button clicked 🪙');
+  await sendData();
+});
+
+// Event listener for context menu
+chrome.contextMenus.create({
+  id: "sendDataContextMenu",
+  title: "Send Data to Google Sheets",
+  contexts: ["all"]
+});
+
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === "sendDataContextMenu") {
+    console.log('Context menu clicked 🪙');
+    await sendData();
+  }
+});
+
+// Event listener for hotkey
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command === "send-data") {
+    console.log('Hotkey pressed 🪙');
+    await sendData();
+  }
 });
