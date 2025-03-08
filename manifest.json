@@ -14,7 +14,10 @@
   "permissions": ["activeTab", "scripting", "storage"],
   "content_scripts": [
     {
-      "matches": ["*://*.mercadolibre.com/*"],
+      "matches": [
+        "*://*.mercadolibre.com/*",
+        "*://*.mercadolibre.com.ar/*"
+      ],
       "js": ["content.js"]
     }
   ]
