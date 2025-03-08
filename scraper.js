@@ -2,29 +2,26 @@
 // This file contains the unified function to extract product data
 
 function getProductData() {
-  // Extract product title
-  const productTitleElement = document.querySelector('h1.ui-pdp-title') ||
-                              document.querySelector('.ui-pdp-title__main-title');
-  const productTitle = productTitleElement ? productTitleElement.innerText : '';
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['selectors'], (result) => {
+      const selectors = result.selectors ? result.selectors.split(',') : [
+        'h1.ui-pdp-title',
+        '.andes-money-amount__fraction[aria-hidden="true"]',
+        '#highlighted_specs_features > section > div.ui-pdp-container__row.ui-pdp-container__row--highlighted-features > div > ul',
+        '.ui-pdp-seller__header__title'
+      ];
 
-  // Extract price using the specified selector
-  const priceElement = document.querySelector('.andes-money-amount__fraction[aria-hidden="true"]');
-  const price = priceElement ? priceElement.innerText : '';
+      const data = selectors.map(selector => {
+        const element = document.querySelector(selector.trim());
+        return element ? element.innerText : '';
+      });
 
-  // Extract shipping cost using available selectors
-  const shippingCostElement = document.querySelector('.ui-pdp-buybox__quantity__available') ||
-                              document.querySelector('.ui-pdp-shipping__message');
-  const shippingCost = shippingCostElement ? shippingCostElement.innerText : 'Free';
+      // Add the current page URL as the last element
+      data.push(window.location.href);
 
-  // Extract seller information
-  const sellerElement = document.querySelector('.ui-pdp-seller__header__title') ||
-                        document.querySelector('.ui-pdp-seller__link-trigger');
-  const seller = sellerElement ? sellerElement.innerText : '';
-
-  // Get the current page URL
-  const productUrl = window.location.href;
-
-  return { productTitle, price, shippingCost, seller, productUrl };
+      resolve(data);
+    });
+  });
 }
 
 // Attach the function to the window object
