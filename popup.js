@@ -7,7 +7,7 @@ async function sendData() {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    func: () => window.getProductData()  // Call the unified function
+    func: () => window.getProductData().then(data => data)  // Call the unified function
   }, (results) => {
     if (chrome.runtime.lastError || !results || !results[0].result) {
       console.error('Error fetching product data 🪙:', chrome.runtime.lastError);
