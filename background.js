@@ -26,6 +26,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'sendData') {
     sendData(sender.tab);
+    sendResponse({ status: 'Message received' });
   }
 });
 
