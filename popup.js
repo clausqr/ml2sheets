@@ -2,17 +2,26 @@
 // This script handles the popup button click event to extract product data and send it to Google Sheets.
 
 document.getElementById('sendDataBtn').addEventListener('click', async () => {
+  console.log('Button clicked 🪙'); // Mensaje de prueba
+
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: () => {
       function getProductData() {
-        const productTitle = document.querySelector('h1.item-title')?.innerText || '';
-        const priceElement = document.querySelector('.price-tag-fraction');
-        const price = priceElement ? priceElement.innerText : '';
-        const shippingCost = document.querySelector('.shipping-cost')?.innerText || 'Free';
-        const seller = document.querySelector('.seller-info')?.innerText || '';
+        const productTitleElement = document.querySelector('h1.ui-pdp-title');
+        const productTitle = productTitleElement ? productTitleElement.innerText : document.querySelector('.ui-pdp-title__main-title')?.innerText || '';
+      
+        const priceElement = document.querySelector('.andes-money-amount__fraction');
+        const price = priceElement ? priceElement.innerText : document.querySelector('.ui-pdp-price__second-line .andes-money-amount__fraction')?.innerText || '';
+      
+        const shippingCostElement = document.querySelector('.ui-pdp-buybox__quantity__available');
+        const shippingCost = shippingCostElement ? shippingCostElement.innerText : document.querySelector('.ui-pdp-shipping__message')?.innerText || 'Free';
+      
+        const sellerElement = document.querySelector('.ui-pdp-seller__header__title');
+        const seller = sellerElement ? sellerElement.innerText : document.querySelector('.ui-pdp-seller__link-trigger')?.innerText || '';
+      
         const productUrl = window.location.href;
         return { productTitle, price, shippingCost, seller, productUrl };
       }
@@ -37,6 +46,7 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
       
       fetch(url, {
         method: 'POST',
+        mode: 'no-cors',  // <--- No-cors mode
         headers: {
           'Content-Type': 'application/json'
         },
