@@ -1,4 +1,4 @@
-// background.js 🪙
+// background.js 
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
@@ -10,14 +10,14 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "sendDataContextMenu") {
-    console.log('Context menu clicked 🪙');
+    console.log('Context menu clicked ');
     sendData(tab);
   }
 });
 
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "send-data") {
-    console.log('Hotkey pressed 🪙');
+    console.log('Hotkey pressed ');
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     sendData(tab);
   }
@@ -31,14 +31,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function sendData(tab) {
-  console.log('Send data triggered 🪙');
+  console.log('Send data triggered ');
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: () => window.getProductData().then(data => data)  // Call the unified function
   }, (results) => {
     if (chrome.runtime.lastError || !results || !results[0].result) {
-      console.error('Error fetching product data 🪙:', chrome.runtime.lastError);
+      console.error('Error fetching product data :', chrome.runtime.lastError);
       return;
     }
     
@@ -49,8 +49,8 @@ async function sendData(tab) {
     chrome.storage.sync.get(['googleScriptUrl'], (result) => {
       const url = result.googleScriptUrl;
       if (!url) {
-        console.error("Google Script URL is not set! 🪙");
-        alert("Please set the Google Script URL in the Options page. 🪙");
+        console.error("Google Script URL is not set! ");
+        alert("Please set the Google Script URL in the Options page. ");
         return;
       }
       
@@ -63,8 +63,8 @@ async function sendData(tab) {
         body: JSON.stringify(data)
       })
       .then(response => response.text())
-      .then(result => console.log('Data sent successfully 🪙:', result))
-      .catch(error => console.error('Error sending data 🪙:', error));
+      .then(result => console.log('Data sent successfully :', result))
+      .catch(error => console.error('Error sending data :', error));
     });
   });
 }

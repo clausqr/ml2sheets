@@ -1,4 +1,4 @@
-// scraper.js 🪙
+// scraper.js 
 // This file contains the unified function to extract product data
 
 function getProductData() {

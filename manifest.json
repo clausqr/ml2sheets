@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ML2Sheets",
   "version": "1.0",
-  "description": "Chrome extension to send MercadoLibre product data to Google Sheets 🪙",
+  "description": "Chrome extension to send MercadoLibre product data to Google Sheets ",
   "action": {
     "default_popup": "popup.html",
     "default_title": "ML2Sheets"
@@ -26,7 +26,7 @@
       "suggested_key": {
         "default": "Ctrl+Shift+U"
       },
-      "description": "Send product data to Google Sheets 🪙"
+      "description": "Send product data to Google Sheets "
     }
   },
   "content_scripts": [
