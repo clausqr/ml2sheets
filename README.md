@@ -2,6 +2,8 @@
 
 ML2Sheets is a Chrome extension that automatically extracts product information from MercadoLibre pages and appends a new row in a Google Sheets document. This extension is built using HTML, JavaScript, and the Chrome Extensions API, and it integrates with a Google Apps Script Web App for seamless data transfer. 🪙
 
+**Current status is alpha - you must load it via "Load Unpacked" in Chrome to use it.**
+
 ## Features
 
 - **Data Extraction:** Automatically extracts product details (description, price, shipping cost, seller, URL, etc.) from MercadoLibre pages.
