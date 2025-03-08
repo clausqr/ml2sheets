@@ -1,15 +1,12 @@
-// popup.js 💰
-// This script handles the popup button click event to extract product data from the current tab and send it to Google Sheets.
+// popup.js 🪙
+// This script handles the popup button click event to extract product data and send it to Google Sheets.
 
 document.getElementById('sendDataBtn').addEventListener('click', async () => {
-  // Query the active tab in the current window 🪙
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
-  // Execute script in the active tab to get product data 🪙
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: () => {
-      // Define function to extract product data (same as in content.js)
       function getProductData() {
         const productTitle = document.querySelector('h1.item-title')?.innerText || '';
         const priceElement = document.querySelector('.price-tag-fraction');
@@ -22,7 +19,6 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
       return getProductData();
     }
   }, (results) => {
-    // Check for errors and process the returned data 🪙
     if (chrome.runtime.lastError || !results || !results[0].result) {
       console.error('Error fetching product data 🪙:', chrome.runtime.lastError);
       return;
@@ -30,16 +26,25 @@ document.getElementById('sendDataBtn').addEventListener('click', async () => {
     
     const data = results[0].result;
     
-    // Replace 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL' with your actual deployed Google Apps Script URL 🪙
-    fetch('YOUR_GOOGLE_SCRIPT_WEB_APP_URL', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(result => console.log('Data sent successfully 🪙:', result))
-    .catch(error => console.error('Error sending data 🪙:', error));
+    // Retrieve the Google Apps Script URL from storage 🪙
+    chrome.storage.sync.get(['googleScriptUrl'], (result) => {
+      const url = result.googleScriptUrl;
+      if (!url) {
+        console.error("Google Script URL is not set! 🪙");
+        alert("Please set the Google Script URL in the Options page. 🪙");
+        return;
+      }
+      
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(result => console.log('Data sent successfully 🪙:', result))
+      .catch(error => console.error('Error sending data 🪙:', error));
+    });
   });
 });
