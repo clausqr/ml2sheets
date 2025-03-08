@@ -7,7 +7,11 @@
     "default_popup": "popup.html",
     "default_title": "ML2Sheets"
   },
-  "permissions": ["activeTab", "scripting"],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
   "content_scripts": [
     {
       "matches": ["*://*.mercadolibre.com/*"],
