@@ -4,7 +4,9 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 
 **Current status is alpha - you must load it via "Load Unpacked" in Chrome to use it.**
 
-![ML2Sheets Screenshot](./assets/ml2sheets.png)
+
+![ML2Sheets Demo](./assets/use.png)
+
 
 ## Features ✨
 
@@ -12,6 +14,8 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 - **Google Sheets Integration:** Sends the extracted data to a Google Sheet by appending a new row.
 - **User Configuration:** Easily set up your Google Apps Script Web App URL via the extension’s Options page.
 - **Simple UI:** Intuitive popup interface to trigger data sending.
+
+
 
 ## Usage (After initial Setup, see below!) 🚀
 
