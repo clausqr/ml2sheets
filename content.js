@@ -44,7 +44,7 @@ function injectButton() {
       event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
       chrome.runtime.sendMessage({ action: 'sendData' }, (response) => {
         if (chrome.runtime.lastError) {
-          console.error('Error sending message:', chrome.runtime.lastError);
+          console.error('Error sending message:', JSON.stringify(chrome.runtime.lastError));
         } else {
           console.log('Message sent:', response);
         }

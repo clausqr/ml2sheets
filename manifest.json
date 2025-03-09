@@ -16,7 +16,8 @@
     "scripting",
     "storage",
     "contextMenus",
-    "commands"
+    "commands",
+    "tabs"
   ],
   "background": {
     "service_worker": "background.js"
@@ -29,6 +30,9 @@
       "description": "Send product data to Google Sheets "
     }
   },
+  "host_permissions": [
+    "https://*.mercadolibre.com.ar/*"
+  ],
   "content_scripts": [
     {
       "matches": [
