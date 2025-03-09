@@ -41,17 +41,7 @@ ML2Sheets is a Chrome extension that automatically extracts product information 
 1. **Download or Clone the Repository:**
    - Clone this repository or download the source code to your local machine.
 
-2. **Automatically Create the Project Structure:**
-   - Run the provided shell script to create all necessary files and folders:
-
-     ```bash
-     chmod +x create_ml2sheets.sh
-     ./create_ml2sheets.sh
-     ```
-
-   - This will create a folder named `ml2sheets` with all the required files.
-
-3. **Load the Extension in Chrome:**
+2. **Load the Extension in Chrome:**
    - Open Chrome and navigate to `chrome://extensions/`.
    - Enable "Developer mode" using the toggle at the top-right.
    - Click **Load unpacked** and select the `ml2sheets` folder.
