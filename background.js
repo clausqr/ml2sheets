@@ -25,9 +25,19 @@ chrome.commands.onCommand.addListener(async (command) => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'sendData') {
-    sendData(sender.tab);
-    sendResponse({ status: 'Message received' });
+    if (sender.tab) {
+      console.log("Mensaje recibido desde tab:", sender.tab.id);
+      // Ahora tienes acceso a sender.tab
+      let tab = sender.tab;
+      // [tab] = chrome.tabs.query({ active: true, currentWindow: true });
+      sendData(tab);
+    } else {
+      console.log("Mensaje recibido desde un contexto sin pestaña válida.");
+    }
   }
+  sendResponse({ status: "ok", tabId: sender.tab ? sender.tab.id : null });
+
+  return true;
 });
 
 async function sendData(tab) {
@@ -38,13 +48,13 @@ async function sendData(tab) {
     func: () => window.getProductData().then(data => data)  // Call the unified function
   }, (results) => {
     if (chrome.runtime.lastError || !results || !results[0].result) {
-      console.error('Error fetching product data :', chrome.runtime.lastError);
+      console.error('Error fetching product data :', JSON.stringify(chrome.runtime.lastError));
       return;
     }
-    
+
     const data = results[0].result;
     console.log("Extracted Data:", data);
-    
+
     // Retrieve the Google Apps Script URL from storage
     chrome.storage.sync.get(['googleScriptUrl'], (result) => {
       const url = result.googleScriptUrl;
@@ -53,7 +63,7 @@ async function sendData(tab) {
         alert("Please set the Google Script URL in the Options page. ");
         return;
       }
-      
+
       fetch(url, {
         method: 'POST',
         mode: 'no-cors',
@@ -62,9 +72,9 @@ async function sendData(tab) {
         },
         body: JSON.stringify(data)
       })
-      .then(response => response.text())
-      .then(result => console.log('Data sent successfully :', result))
-      .catch(error => console.error('Error sending data :', error));
+        .then(response => response.text())
+        .then(result => console.log('Data sent successfully :', result))
+        .catch(error => console.error('Error sending data :', error));
     });
   });
 }
